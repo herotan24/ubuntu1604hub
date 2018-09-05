@@ -22,7 +22,7 @@ sudo x11vnc -storepasswd /etc/x11vnc.pass
 # 步骤 3 - 创建服务
 # ################################################################# 
 
-cat > /lib/systemd/system/x11vnc.service << EOF
+cat > x11vnc.service << EOF
 [Unit]
 Description=Start x11vnc at startup.
 After=multi-user.target
@@ -34,6 +34,9 @@ ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth
 [Install]
 WantedBy=multi-user.target
 EOF
+
+sudo chown root:root x11vnc.service
+sudo mv x11vnc.service /lib/systemd/system/x11vnc.service 
 
 # 步骤 4 - 配配置防火墙端口，配置和启动服务
 # ################################################################ 
